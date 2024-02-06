@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
         
         [HttpGet("GetAvg")]
         [ProducesResponseType(typeof(double), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<double>> GetAbg([FromQuery]SensorType sensorType)
+        public async Task<ActionResult<double>> GetAvg([FromQuery]SensorType sensorType)
         {
             var avg = _service.GetAvg(sensorType);
             return Ok(avg);
