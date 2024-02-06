@@ -1,0 +1,10 @@
+### Send one message to MQTT
+POST http://localhost:5189/api/mqtt/send?topic=example_topic&message=message
+
+
+### Start generator sending random values to MQTT
+POST http://localhost:5189/api/mqtt/startgenerator?minValue=5&maxValue=150&timeStamp=1000
+
+
+### Stop generator sending random values to MQTT
+POST http://localhost:5189/api/mqtt/stopgenerator?topic=example_topic

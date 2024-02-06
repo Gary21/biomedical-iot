@@ -1,12 +1,18 @@
 # BiomedicalDataService
 .NET service for receiving data from medical sensors
 
+Devided into four separated containers:
+DataGenerator - generates random (can be parametrised) samples data, can be replaced with physical device
+MQTT - queuing service, used in communication between DataGenerator(or device) and WebAPI
+WebAPI - backend, saves samples in database and handles frontend requests
+frontend - GUI
+
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://github.com/kawson1/biomedical-data-service.git
+  git clone https://github.com/Gary21/biomedical-iot.git
 ```
 
 Go to the project directory
@@ -15,7 +21,7 @@ Go to the project directory
   cd biomedical-data-service
 ```
 
-Start container with docker compose file
+Start containers with docker compose file
 
 ```bash
   docker compose -p project up -d
@@ -26,55 +32,3 @@ Default MQTT credentials
 login: user1
 password: user1
 ```
-
-Default port mapping for MQTT is `1884:1883`
-
-
-## Usage/Examples of MQTT
-Topic subscription
-```
-docker exec -it <container_id> mosquitto_sub -v -t "example_topic" -u user1 -P user1
-```
-If you want to publish message to `example_topic` topic 
-```
-mosquitto_pub -h localhost -p 1884 -t example_topic -m "message" -u user1 -P user1
-```
-
-## Data Generator
-This project provides REST API controllers and services for the purpose of generating and sending data to MQTT queue.
-
-#### Send message
-
-```http
-  POST /api/mqtt/send?topic={topic}&message={message}
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `topic` | `string` | MQTT topic |
-| `message` | `string` | MQTT message |
-
-
-#### Start generating values
-
-```http
-  GET /api/mqtt/startgenerator?topic=example_topic&minValue=5&maxValue=10&timeStamp=1000
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `topic` | `string` | MQTT topic |
-| `minValue` | `int` | Minimal random value |
-| `maxValue` | `int` | Maximal random value |
-| `timeStamp` | `int` | Delay between generating (ms) |
-
-
-#### Stop generating values
-
-```http
-  GET /api/mqtt/stopgenerator?topic={topic}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `topic` | `string` | Topic of generator to stop |

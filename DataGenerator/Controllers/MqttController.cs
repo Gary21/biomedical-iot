@@ -19,7 +19,6 @@ namespace DataGenerator.Controllers
             _mqttService = mqttService;
         }
 
-        // POST: http://localhost:5189/api/mqtt/send?topic=example_topic&message=message
         [HttpPost("send")]
         public async Task<IActionResult> send([FromQuery] string topic,
                                               [FromQuery] string message)
@@ -27,8 +26,7 @@ namespace DataGenerator.Controllers
             return await _mqttService.SendMessage(message, topic) ? Ok() : StatusCode(500, "Couldn't send message to MQTT service.");
         }
 
-        // GET: http://localhost:5189/api/mqtt/startgenerator?minValue=5&maxValue=150&timeStamp=1000
-        [HttpGet("startgenerator")]
+        [HttpPost("startgenerator")]
         public async Task<IActionResult> startGenerator(
                                                         [FromQuery] int minValue,
                                                         [FromQuery] int maxValue,
@@ -54,8 +52,7 @@ namespace DataGenerator.Controllers
             }
         }
 
-        // GET: http://localhost:5189/api/mqtt/stopgenerator?topic=example_topic
-        [HttpGet("stopgenerator")]
+        [HttpPost("stopgenerator")]
         public async Task<IActionResult> stopGenerator([FromQuery] string topic)
         {
             _mqttService.StopGenerator(topic);

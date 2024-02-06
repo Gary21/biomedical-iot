@@ -1,0 +1,18 @@
+### Get one sample
+GET http://localhost:5000/Sample/Get
+
+### Get newest sample of specific type
+GET http://localhost:5000/Sample/GetNewest/0
+
+
+### Get average value if last 100 samples of specific type
+GET http://localhost:5000/Sample/GetAvg/0
+
+### Get csv of filtered samples
+GET http://localhost:5000/Sample/GetCsv
+
+### Get json of filtered samples
+GET http://localhost:5000/Sample/GetJson
+
+### Clears all samples
+GET http://localhost:5000/Sample/Clear
